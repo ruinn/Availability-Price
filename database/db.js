@@ -15,7 +15,7 @@ const room = mongoose.Schema({
 
 const Booking = mongoose.model('Booking', room);
 
-const save = function (reservation) {
+const save = (reservation) => {
   const booking = new Booking(reservation);
   booking.save();
 };
