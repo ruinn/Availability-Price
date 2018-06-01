@@ -1,11 +1,9 @@
 const faker = require('faker');
 const db = require('./db');
 
-const randomizeNumber = function (min, max) {
-  return Math.floor(Math.random() * Math.floor(max)) + min;
-};
+const randomizeNumber = (min, max) => Math.floor(Math.random() * Math.floor(max)) + min;
 
-const sequentialDate = function (next) {
+const sequentialDate = (next) => {
   const today = new Date();
   today.setDate(today.getDate() + next);
   let day = today.getDate();
@@ -16,15 +14,14 @@ const sequentialDate = function (next) {
   return `${year}-${month}-${day}`;
 };
 
-const randomRoom = function () {
-  console.log('random room was called');
-  const hotels = 100;
-  const record = 0;
+const randomRoom = () => {
+  let hotels = 100;
+  let record = 0;
   while (hotels > 0) {
-    const rooms = 10;
+    let rooms = 10;
     while (rooms > 0) {
       const randomName = faker.name.findName();
-      const daysAhead = 30;
+      let daysAhead = 30;
       const maxBeds = randomizeNumber(1, 11);
       while (daysAhead > 0) {
         const currentRoom = {};
@@ -37,12 +34,12 @@ const randomRoom = function () {
         currentRoom.price = randomizeNumber(5, (maxBeds * 2));
         currentRoom.date = sequentialDate(daysAhead);
         db.save(currentRoom);
-        daysAhead - 1;
-        record + 1;
+        daysAhead += 1;
+        record += 1;
       }
-      rooms - 1;
+      rooms += 1;
     }
-    hotels - 1;
+    hotels += 1;
   }
 };
 
