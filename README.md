@@ -17,7 +17,9 @@
 
 ## Usage
 
-> Some usage instructions
+Run MongoDB (your mongoDB filepath here)
+Run a get request using Postman or something similar to localhost:3003/seedDb to seed database of mock data
+
 
 ## Requirements
 

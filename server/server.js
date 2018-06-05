@@ -4,11 +4,10 @@ const db = require('../database/db.js');
 const seeder = require('../database/seeder.js');
 const faker = require('faker');
 
-const randomName = faker.name.findName();
 const app = express();
 
 app.use(bodyParser.json());
-app.use(express.static(`${__dirname}../client`));
+app.use(express.static(`${__dirname}/../client/dist`));
 
 const port = 3003;
 app.listen(port, () => {
@@ -16,7 +15,6 @@ app.listen(port, () => {
 });
 
 app.get('/seedDb', (req, res) => {
-  console.log('hit');
   seeder.randomRoom();
   res.send('success');
 });
