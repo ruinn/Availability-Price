@@ -7,7 +7,7 @@ class SearchBar extends React.Component {
     render() {
         return (
             <div>
-                Here will go the DateBar (not for picking up dates though)
+                Reservation dates for 7/1 - 7/4
             </div>
         )
     }

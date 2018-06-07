@@ -8,7 +8,9 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "react-dev": "webpack -d --watch"
+    "start": "node test",
+    "react-dev": "webpack -d --watch",
+    "test": "jest"
   },
   "dependencies": {
     "express": "^4.16.3",
@@ -24,6 +26,8 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.12.0",
+    "jest": "^23.1.0",
+    "supertest": "^3.1.0",
     "webpack": "^4.10.2",
     "webpack-cli": "^2.1.5"
   }
