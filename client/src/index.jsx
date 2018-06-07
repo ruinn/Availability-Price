@@ -7,7 +7,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            hotelRooms: [],
+            hotelRooms: { rooms: [] },
             startDate: 0,
             endDate: 0
         }
@@ -22,7 +22,11 @@ class App extends React.Component {
         .then(response => response.json())
         .then(response => {
             console.log(response)
-            this.setState({ hotelRooms: response })
+            // this.setState(prevState => ({
+            //     hotelRooms: [...prevState, response.rooms]
+            // }))
+            this.setState({hotelRooms: response})
+            console.log(this.state.hotelRooms)
         })
     }
 
@@ -32,7 +36,7 @@ class App extends React.Component {
             <h2>Check Availability</h2>
             This is the SearchBar
                 <SearchBar/>
-                <Reservations hotelRooms={this.state.hotelRooms}/>
+                <Reservations state={this.state}/>
             </div>
         )
     }
