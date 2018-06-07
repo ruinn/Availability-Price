@@ -15,15 +15,30 @@ class Reservations extends React.Component {
                 </div> */}
                 <table id="dorms2">
                     <thead>
-                        <th id="header">
-                            <td className="dormName"><h4>Dorm Beds</h4>
+                        <tr id="header">
+                            <th className="dormName"><h4>Dorm Beds</h4>
                                 <span>Prices are per room</span>
-                            </td>
-                            <td className="averagePrice">Average price per night</td>
-                            <td className="countRooms">Rooms</td>
-                        </th>
+                            </th>
+                            <th className="averagePrice">Average price per night</th>
+                            <th className="countRooms">Rooms</th>
+                        </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td className="dormName">Random Stuff</td>
+                            <td>$10</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td className="dormName">Random Stuff</td>
+                            <td>$10</td>
+                            <td>2</td>
+                        </tr>                        
+                        <tr>
+                            <td className="dormName">Random Stuff</td>
+                            <td>$10</td>
+                            <td>2</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
