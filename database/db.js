@@ -9,12 +9,11 @@ const bookingSchema = mongoose.Schema({
   roomName: String,
   price: Number,
   maxBeds: Number,
-  reservedBeds: Number,
+  bedsLeft: Number,
   date: Date,
 });
 
 const roomsSchema = mongoose.Schema({
-  roomName: String,
   room: [bookingSchema],
 });
 
@@ -31,16 +30,15 @@ const save = (reservation) => {
   reservation.save();
 };
 
-const serveHotel = (callback) => {
-  Hotel.findOne({ id: 1 }).exec((err, data) => {
+const serveHotel = (hostelId, callback) => {
+  Hotel.findOne({ id: hostelId }).exec((err, data) => {
     if (err) callback(err, null);
     else callback(null, data);
   });
 };
 
-
 module.exports.save = save;
 module.exports.Hotel = Hotel;
-module.exports.allRooms = Room;
+module.exports.AllRooms = Room;
 module.exports.Booking = Booking;
 module.exports.serveHotel = serveHotel;
