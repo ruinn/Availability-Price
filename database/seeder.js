@@ -21,25 +21,21 @@ const randomRoom = () => {
     const hotelReservation = new db.Hotel({ id: hotels });
     let rooms = 4;
     while (rooms > 0) {
-      let daysAhead = 30;
+      let daysAhead = 0;
       const maxBeds = randomizeNumber(1, 11);
-      let size = '';
-      if (maxBeds <= 3) size = 'small';
-      if (maxBeds >= 4 && maxBeds <= 7) size = 'medium';
-      else size = 'large';
-      const AllRooms = new db.allRooms({ roomName: size });
-      while (daysAhead > 0) {
+      const AllRooms = new db.AllRooms({});
+      while (daysAhead < 30) {
         const currentRoom = {};
         currentRoom.record = record;
         currentRoom.hotelId = hotels;
         currentRoom.roomId = rooms;
         currentRoom.maxBeds = maxBeds;
-        currentRoom.reservedBeds = randomizeNumber(0, maxBeds + 1);
+        currentRoom.bedsLeft = randomizeNumber(0, maxBeds + 1);
         currentRoom.price = randomizeNumber(5, (maxBeds * 2));
         currentRoom.date = sequentialDate(daysAhead);
         const reservation = new db.Booking(currentRoom);
         AllRooms.room.push(reservation);
-        daysAhead -= 1;
+        daysAhead += 1;
         record += 1;
       }
       hotelReservation.rooms.push(AllRooms);
