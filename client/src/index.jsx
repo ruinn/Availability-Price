@@ -78,6 +78,7 @@ class App extends React.Component {
         this.setState({
             selectedRooms: rooms,
         })
+        this.updateTotal(rooms)
     }
 
     updateTotal(rooms) {
@@ -87,7 +88,7 @@ class App extends React.Component {
                 total += rooms[i].reservedBeds * rooms[i].avg * rooms[i].length;
             }
         }
-        return total;
+        this.setState({total: total});
     }
 
 
@@ -98,10 +99,20 @@ class App extends React.Component {
         selected={this.state.selectedRooms}
         total={this.state.total}
         update={this.updateTotal}/>
+        if (this.state.total === 0) {
+            return (
+                <div id="container">
+                    <h2>Check Availability</h2>
+                    This is the SearchBar
+                    <SearchBar/>
+                    <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
+                </div>
+            )
+        }
         return (
             <div id="container">
-            <h2>Check Availability</h2>
-            This is the SearchBar
+                <h2>Check Availability</h2>
+                This is the SearchBar
                 <SearchBar/>
                 <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
                 <CSSTransitionGroup
