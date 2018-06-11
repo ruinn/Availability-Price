@@ -3,9 +3,10 @@ import ReactDom from 'react-dom';
 import SearchBar from './components/SearchBar.jsx';
 import Reservations from './components/Reservations.jsx';
 import ReservationConfirm from './components/ReservationConfirm.jsx';
-import { CSSTransitionGroup } from 'react-transition-group'
+import { CSSTransitionGroup } from 'react-transition-group';
+// const body = styled.div`margin:0;`
 
-class App extends React.Component {
+class Booking extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -107,23 +108,23 @@ class App extends React.Component {
                 <h2>Check Availability</h2>
                 <SearchBar startDate={this.state.startDate} endDate={this.state.endDate}/>
                 <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
-                <CSSTransitionGroup
+                {/* <CSSTransitionGroup
                     transitionName="example"
                     transitionAppear={true}
                     transitionAppearTimeout={500}
                     transitionLeaveTimeout={300}
                     transitionEnter={false}
-                    transitionLeave={true}>
+                    transitionLeave={true}> */}
                     <ReservationConfirm room={this.state.currentRoom}
                         beds={this.state.numberOfBeds}
                         average={this.state.averagePrice}
                         selected={this.state.selectedRooms}
                         total={this.state.total}
                         update={this.updateTotal}/>
-                </CSSTransitionGroup>
+                {/* </CSSTransitionGroup> */}
             </div>
         )
     }
 }
-
-ReactDom.render(<App/>, document.getElementById('app'));
+window.Booking = Booking;
+// ReactDom.render(<App/>, document.getElementById('app'));

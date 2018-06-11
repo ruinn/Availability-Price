@@ -22,7 +22,7 @@ class SearchBar extends React.Component {
 
     clickHandler(event) {
         event.preventDefault();
-        this.setState({[event.target.id]: !this.state[event.target.id]}, () => console.log(this.state.startCal))
+        this.setState({[event.target.id]: !this.state[event.target.id]})
     }
 
     turnOff(event) {
@@ -40,9 +40,9 @@ class SearchBar extends React.Component {
         return (
             <div id="SearchBar" onClick={this.turnOff}>
                 <p className="searchItem">Reservation dates for {this.parseDate(this.props.startDate)}</p>
-                <a className="searchItem" id="startCal" className="nullClick" href onClick={this.clickHandler}>Click</a>
+                <a className="searchItem" id="startCal" className="nullClick" href="true" onClick={this.clickHandler}>Click</a>
                 <p className="searchItem"> - {this.parseDate(this.props.endDate)}</p>
-                <a className="searchItem" id="endCal" className="nullClick" href onClick={this.clickHandler}>Click</a>
+                <a className="searchItem" id="endCal" className="nullClick" href="true" onClick={this.clickHandler}>Click</a>
                 <div>
                 { this.state.startCal ? <Calendar startDate={this.props.startDate} id="Calendar" className="Calendar"/> : null }
                 { this.state.endCal ? <Calendar startDate={this.props.endDate} id="Calendar2" className="Calendar"/> : null }
