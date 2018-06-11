@@ -93,18 +93,11 @@ class App extends React.Component {
 
 
     render(){
-        const test = <ReservationConfirm room={this.state.currentRoom}
-        beds={this.state.numberOfBeds}
-        average={this.state.averagePrice}
-        selected={this.state.selectedRooms}
-        total={this.state.total}
-        update={this.updateTotal}/>
         if (this.state.total === 0) {
             return (
                 <div id="container">
                     <h2>Check Availability</h2>
-                    This is the SearchBar
-                    <SearchBar/>
+                    <SearchBar startDate={this.state.startDate} endDate={this.state.endDate}/>
                     <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
                 </div>
             )
@@ -112,16 +105,21 @@ class App extends React.Component {
         return (
             <div id="container">
                 <h2>Check Availability</h2>
-                This is the SearchBar
-                <SearchBar/>
+                <SearchBar startDate={this.state.startDate} endDate={this.state.endDate}/>
                 <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
                 <CSSTransitionGroup
                     transitionName="example"
                     transitionAppear={true}
                     transitionAppearTimeout={500}
+                    transitionLeaveTimeout={300}
                     transitionEnter={false}
-                    transitionLeave={false}>
-                        {test}
+                    transitionLeave={true}>
+                    <ReservationConfirm room={this.state.currentRoom}
+                        beds={this.state.numberOfBeds}
+                        average={this.state.averagePrice}
+                        selected={this.state.selectedRooms}
+                        total={this.state.total}
+                        update={this.updateTotal}/>
                 </CSSTransitionGroup>
             </div>
         )
