@@ -14,7 +14,7 @@ class ConfirmationRow extends React.Component {
                 <td>{this.props.room.reservedBeds} Beds</td>
                 <td>${this.props.room.avg * this.props.room.reservedBeds}</td>
                 <td>{this.props.room.length}</td>
-                <td>${this.props.room.avg * this.props.room.reservedBeds * this.props.room.length}</td>
+                <td id="totalPrice">${this.props.room.avg * this.props.room.reservedBeds * this.props.room.length}</td>
             </tr>
         )
     }
