@@ -3,7 +3,9 @@ const bodyParser = require('body-parser');
 const db = require('../database/db.js');
 const seeder = require('../database/seeder.js');
 const app = express();
+const cors = require('cors');
 
+app.use(cors())
 app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/../public`));
 

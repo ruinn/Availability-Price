@@ -16,6 +16,13 @@ const H2= styled.h2`
     margin-top: 0;
 `
 
+const Styles=styled.div`
+    font-family: Helvetica;
+    width: 100%; 
+    background-color: rgb(235, 235, 235); 
+    padding: 30px;
+`
+
 class Booking extends React.Component {
     constructor(props) {
         super(props);
@@ -129,7 +136,7 @@ class Booking extends React.Component {
 
     render(){
         return (
-            <div onClick={this.turnOff}>
+            <Styles onClick={this.turnOff}>
                 <Container>
                     <H2>Check Availability</H2>
                     <SearchBar startDate={this.state.startDate}
@@ -148,9 +155,9 @@ class Booking extends React.Component {
                         total={this.state.total}
                         update={this.updateTotal}/>
                 </Container>
-            </div>
+            </Styles>
         )
     }
 }
-window.Booking = Booking;
-// ReactDom.render(<App/>, document.getElementById('app'));
+// window.Booking = Booking;
+ReactDom.render(<Booking/>, document.getElementById('booking'));

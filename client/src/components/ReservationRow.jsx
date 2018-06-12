@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 const Td = styled.td`
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px solid #C4C4C4;
     white-space:nowrap;
     padding:.5rem;
 `;
@@ -11,7 +11,7 @@ const Td = styled.td`
 const DropDown = styled.select`
     type="text";
     position:relative;
-    box-shadow: inset 0 1px 2px rgb(196, 196, 196);
+    box-shadow: inset 0 1px 2px #C4C4C4;
     display:table;
     margin:auto;
     min-width: 100%;
