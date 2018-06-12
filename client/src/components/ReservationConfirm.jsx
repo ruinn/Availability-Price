@@ -2,14 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ConfirmationRow from './ConfirmationRow.jsx';
 import styled, { keyframes } from 'styled-components';
+import { css } from 'styled-components';
 
 const slideIn = keyframes`
-    from {
-        opacity:0;
+    0% {
+        transform: translateY(-140%);
     }
-    to {
-        opacity:1;
+    100% {
+        transform: translateY(0%);
+    }		
+}
+`
+
+const slideUp = keyframes`
+    0% {
+        transform: translateY(0%);
     }
+    100% {
+        transform: translateY(-140%);
+        opacity: 0%;
+        display: none;
+    }		
+}
 `
 
 const StyledTable = styled.table`
@@ -42,7 +56,7 @@ const Button = styled.button`
     float: right;
 `
 
-const DormName = styled.th`
+const DormName = Th.extend`
     border: 1px solid rgb(196, 196, 196);
     white-space:nowrap;
     padding:.5rem;
@@ -50,7 +64,12 @@ const DormName = styled.th`
     width: 100%;   
 `
 
-const NormalHeader = styled.th`
+const SubTotal = Th.extend`
+    min-width: 40px;
+    text-align: right;
+`
+
+const NormalHeader = Th.extend`
     border: 1px solid rgb(196, 196, 196);
     white-space:nowrap;
     padding:.5rem;
@@ -68,15 +87,30 @@ const Span = styled.span`
 `;
 
 const Transit = styled.div`
-visibility: ${props => props.total === 0 ? 'hidden': 'visible'};
-animation: fadeIn 1s linear;
+max-height: 500px;
+position: relative;
+visibility: ${props => !props.toggler ? 'hidden': 'visible' }
+${props => props.total === 0 && css` animation: ${slideUp} .5s linear forwards;`}
+${props => props.total > 0 && css` animation: ${slideIn} .5s linear;`}
+
+`
+
+const HeightCheck = styled.div`
+overflow-y: hidden;
 `
 
 class ReservationConfirm extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            toggler: false
+        }
         this.createRows = this.createRows.bind(this);
-        this.updateTotal = this.updateTotal.bind(this);
+        this.appear = this.appear.bind(this);
+    }
+
+    appear() {
+        this.setState({ toggler: true })
     }
 
     createRows(rooms) {
@@ -87,21 +121,10 @@ class ReservationConfirm extends React.Component {
         return roomsArray;
     }
 
-
-
-    updateTotal(rooms) {
-        let total = 0;
-        for (var i in rooms) {
-            if (rooms[i].reservedBeds !== "Select") {
-                total += rooms[i].reservedBeds * rooms[i].avg * rooms[i].length;
-            }
-        }
-        return total;
-    }
-
     render() {
         return (
-            <Transit total={this.props.total}>
+            <HeightCheck>
+            <Transit total={this.props.total} toggler={this.state.toggler}>
                 <StyledTable>
                     <thead>
                         <Tr>
@@ -109,11 +132,11 @@ class ReservationConfirm extends React.Component {
                             <NormalHeader>Bed</NormalHeader>
                             <NormalHeader>Price Per Night</NormalHeader>
                             <Th>Nights</Th>
-                            <Th>Total</Th>
+                            <SubTotal>Total</SubTotal>
                         </Tr>
                     </thead>
                     <StyledBody>
-                        {this.createRows(this.props.selected).map((room, index) =>  <ConfirmationRow room={room} key={index}/>)}
+                        {this.createRows(this.props.selected).map((room, index) =>  <ConfirmationRow room={room} key={index} appear={this.appear} total={this.props.total}/>)}
                     </StyledBody>
                 </StyledTable>
                 <StyledTable>
@@ -126,6 +149,7 @@ class ReservationConfirm extends React.Component {
                 <Button>Confirm</Button>
 
             </Transit>
+            </HeightCheck>
         )
     }
 }

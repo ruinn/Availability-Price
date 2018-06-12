@@ -9,10 +9,14 @@ const Td = styled.td`
 `;
 
 const DropDown = styled.select`
+    type="text";
+    position:relative;
+    box-shadow: inset 0 1px 2px rgb(196, 196, 196);
     display:table;
     margin:auto;
     min-width: 100%;
-    margin-bottom: 10px;
+    height: 30px;
+    border-radius: 3px;
 `;
 
 class ReservationRow extends React.Component {

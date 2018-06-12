@@ -5,7 +5,7 @@ const seeder = require('../database/seeder.js');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(express.static(`${__dirname}/../client/dist`));
+app.use(express.static(`${__dirname}/../public`));
 
 const port = 3003;
 const server = app.listen(port, () => {

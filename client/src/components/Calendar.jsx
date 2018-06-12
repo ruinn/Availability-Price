@@ -1,7 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Date from './Date.jsx';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { css } from 'styled-components';
+
+const slideIn = keyframes`
+    0% {
+        transform: scaleY(0);
+    }
+    100% {
+        transform: scaleY(1);
+    }		
+}
+`
+
+const slideUp = keyframes`
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(-140%);
+        opacity: 0%;
+        display: none;
+    }		
+}
+`
+
 
 const Cal = styled.div`
     width: 350px;
@@ -11,7 +35,8 @@ const Cal = styled.div`
     position: fixed;
     z-index: 2;
     top: 15%;
-    animation: fadein 2s;
+    ${props => !props.id && css` animation: ${slideUp} .3s linear forwards;`}
+    ${props => props.id && css` animation: ${slideIn} .1s linear;`}
 `;
 
 const FlexCal = styled.ul`
@@ -20,6 +45,7 @@ const FlexCal = styled.ul`
     flex-flow: wrap;
     justify-content: left;
     padding: 5px;
+    position: relative;
 `
 
 class Calendar extends React.Component {
@@ -44,7 +70,6 @@ class Calendar extends React.Component {
     render() {
         return (
                 <Cal id={this.props.id}>
-                    {console.log(this.props)}
                     <FlexCal className="nullClick">
                         {this.state.shortDays.map((item, index)=> <Date key={index} day={index + 1}/>)}
                     </FlexCal>
