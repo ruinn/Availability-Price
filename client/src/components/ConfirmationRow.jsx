@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 const Td = styled.td`
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px solid #C4C4C4;
     white-space:nowrap;
     padding:.5rem;
 `;

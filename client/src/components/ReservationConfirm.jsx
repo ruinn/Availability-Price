@@ -36,13 +36,13 @@ const StyledBody = styled.tbody`
 `;
 
 const Th = styled.th`
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px solid #C4C4C4;
     white-space:nowrap;
     padding:.5rem;
 `;
 
 const Td = styled.td`
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px solid #C4C4C4;
     white-space:nowrap;
     padding:.5rem;
 `;
@@ -57,7 +57,7 @@ const Button = styled.button`
 `
 
 const DormName = Th.extend`
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px solid #C4C4C4;
     white-space:nowrap;
     padding:.5rem;
     text-align: left;
@@ -70,7 +70,7 @@ const SubTotal = Th.extend`
 `
 
 const NormalHeader = Th.extend`
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px solid #C4C4C4;
     white-space:nowrap;
     padding:.5rem;
     min-width: 100px;

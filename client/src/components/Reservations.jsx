@@ -13,13 +13,13 @@ const StyledBody = styled.tbody`
 `;
 
 const Td = styled.td`
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px solid #C4C4C4;
     white-space:nowrap;
     padding:.5rem;
 `;
 
 const Th = styled.th`
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px solid #C4C4C4;
     white-space:nowrap;
     padding:.5rem;
 `;
@@ -31,7 +31,7 @@ const Tr = styled.tr`
 `;
 
 const DormName = styled.th`
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px solid #C4C4C4;
     white-space:nowrap;
     padding:.5rem;
     text-align: left;
@@ -39,14 +39,14 @@ const DormName = styled.th`
 `;
 
 const NormalHeader = styled.th`
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px solid #C4C4C4;
     white-space:nowrap;
     padding:.5rem;
     min-width: 100px;
 `;
 
 const LargeHeader = styled.th`
-    border: 1px solid rgb(196, 196, 196);
+    border: 1px solid #C4C4C4;
     white-space:nowrap;
     padding:.5rem;
     min-width: 150px;
