@@ -18,8 +18,7 @@ const DropDown = styled.div`
     display: flex;
     flex-direction: column;
 `
-// display: flex;
-// flex-direction:column;
+
 class SearchBar extends React.Component {
     constructor(props) {
         super(props);
@@ -41,21 +40,33 @@ class SearchBar extends React.Component {
 
     render() {
         return (
-            <SearchDisplay onClick={this.props.turnOff}>
+            <SearchDisplay>
                 <InlineP>Reservation dates for {this.parseDate(this.props.startDate)}</InlineP>
                     <SearchDisplay>
                         <DropDown>
                             <InlineA id="startCal" className="nullClick" href="true" onClick={this.clickHandler}>Click</InlineA>
-                            { this.props.startCal ? <Calendar startDate={this.props.startDate} id="Calendar"/> : null }
+                                { this.props.startCal ?
+                                    <Calendar startDate={this.props.startDate}
+                                        date={this.props.startDate}
+                                        setStartDate={this.props.setStartDate}
+                                    id="Calendar"/>
+                                : null }
                         </DropDown> 
                     </SearchDisplay>
                 <InlineP> - {this.parseDate(this.props.endDate)}</InlineP>
                 <SearchDisplay>
                         <DropDown>
                             <InlineA id="endCal" className="nullClick" href="true" onClick={this.clickHandler}>Click</InlineA>
-                            { this.props.endCal ? <Calendar endDate={this.props.endDate} id="Calendar2"/> : null }
+                            { this.props.endCal ?
+                                <Calendar
+                                    endDate={this.props.endDate}
+                                    date={this.props.endDate}
+                                    setEndDate={this.props.setEndDate}
+                                id="Calendar2"/>
+                            : null }
                         </DropDown> 
                 </SearchDisplay>
+                <button id="submit" onClick={this.props.submitDates}>Submit</button>
             </SearchDisplay>
         )
     }

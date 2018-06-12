@@ -29,8 +29,8 @@ class Booking extends React.Component {
         this.state = {
             unfiltered: {},
             hotelRooms: { rooms: [] },
-            startDate: '2018-06-01',
-            endDate: '2018-06-04',
+            startDate: '2018-06-2',
+            endDate: '2018-06-5',
             startPoint: 0,
             endPoint: 0,
             currentRoom: {},
@@ -41,10 +41,15 @@ class Booking extends React.Component {
             startCal: false,
             endCal: false,
         }
+        let startHolder = '';
+        let endHolder = '';
         this.setCurrentRoom = this.setCurrentRoom.bind(this);
         this.updateTotal = this.updateTotal.bind(this);
         this.turnOff = this.turnOff.bind(this);
         this.toggleCalendars = this.toggleCalendars.bind(this);
+        this.setStartDate = this.setStartDate.bind(this);
+        this.setEndDate = this.setEndDate.bind(this);
+        this.submitDates = this.submitDates.bind(this);
     }
 
     componentDidMount() {
@@ -52,7 +57,7 @@ class Booking extends React.Component {
     }
     
     initializeRoom() {
-        fetch('http://localhost:3003/api/hostels/1/reservations')
+        fetch('http://localhost:3003/api/hostels/5/reservations')
         .then(response => response.json())
         .then(response => {
             console.log(response)
@@ -133,6 +138,24 @@ class Booking extends React.Component {
         this.setState({[event.target.id]: !this.state[event.target.id]})
     }
 
+    setStartDate(year, month, day) {
+        this.startHolder = year + '-' + month + '-' + day;
+        console.log(this.startHolder)
+    }
+
+    setEndDate(year, month, day) {
+        this.endHolder =  year + '-' + month + '-' + day;
+        console.log(this.endHolder)
+    }
+
+    submitDates() {
+        this.setState({
+            startDate: this.startHolder,
+            endDate: this.endHolder
+        })
+        this.initializeRoom()
+    }
+
 
     render(){
         return (
@@ -143,8 +166,10 @@ class Booking extends React.Component {
                         endDate={this.state.endDate}
                         startCal={this.state.startCal}
                         endCal={this.state.endCal}
-                        turnOff={this.turnOff}
-                        toggler={this.toggleCalendars}/>
+                        toggler={this.toggleCalendars}
+                        setStartDate={this.setStartDate}
+                        setEndDate={this.setEndDate}
+                        submitDates={this.submitDates}/>
                     <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
                     <ReservationConfirm 
                         total={this.state.total}
@@ -159,5 +184,4 @@ class Booking extends React.Component {
         )
     }
 }
-// window.Booking = Booking;
 ReactDom.render(<Booking/>, document.getElementById('booking'));

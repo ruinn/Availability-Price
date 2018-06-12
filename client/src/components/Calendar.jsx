@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Date from './Date.jsx';
+import CalDate from './Date.jsx';
 import styled, { keyframes } from 'styled-components';
 import { css } from 'styled-components';
 
@@ -48,30 +48,108 @@ const FlexCal = styled.ul`
     position: relative;
 `
 
+const FlexMonth = styled.div`
+    display:block;
+`
+
 class Calendar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             left: false,
-            currentMonth: 7,
-            longMonths: [1, 3, 5, 6, 8, 10, 12],
-            shortMonths:[4, 7, 9, 11],
-            longDays: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ,14 ,15 ,16 ,17 ,18 ,19, 20, 21, 22, 23, 24, 25 , 26, 27, 28, 29, 30, 31],
-            shortDays: [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 ,26, 27, 28, 29, 30],
+            currentMonth: 0,
+            currentYear: 0,
+            currentDate: 0,
+            firstDay: 0,
+            clicked: false,
+            standard: [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 ,26, 27, 28, 29, 30],
+            days: [],
+            months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         }
+
+        this.leftOrRightCalendar = this.leftOrRightCalendar.bind(this);
+        this.getFirstDay = this.getFirstDay.bind(this);
+        this.oneClick = this.oneClick.bind(this);
+        this.backMonth = this.backMonth.bind(this);
+        this.forwardMonth = this.forwardMonth.bind(this);
     }
 
     componentDidMount() {
+        const date = this.props.date.split('-')
+        const month = date[1];
+        const year = date[0];
+        const day = date[2];
+        this.leftOrRightCalendar();
+        this.getFirstDay(year, month, day);
+    }
+
+    leftOrRightCalendar() {
         if (!this.props.endDate) {
             this.setState({left: true})
         }
     }
 
+    getFirstDay(year, month, day) {
+        let first = new Date(year, month, 1).getDay()
+        let temp = this.state.standard;
+        let newDays = temp.slice();
+        if (month == 1) {
+            newDays.pop();
+            newDays.pop();
+        }
+        while (first > 0) {
+            newDays.unshift(' ')
+            first -= 1;
+        }
+        while (newDays.length < 35) {
+            newDays.push(' ')
+        }
+        this.setState({ 
+            days: newDays,
+            currentMonth: month,
+            currentYear: year,
+            currentDay: day,
+         })
+    }
+
+    oneClick() {
+        this.setState({ clicked: true })
+    }
+
+    backMonth() {
+        if(this.state.currentMonth > 0) {
+        let newMonth = this.state.currentMonth;
+        newMonth -= 1;
+        this.getFirstDay(this.state.currentYear, newMonth, this.state.day)
+        }
+    }
+
+    forwardMonth() {
+        if(this.state.currentMonth < 11) {
+        let newMonth = Number(this.state.currentMonth);
+        newMonth += 1;
+        this.getFirstDay(this.state.currentYear, newMonth, this.state.day)
+        }
+    }
+
     render() {
         return (
-                <Cal id={this.props.id}>
+                <Cal id={this.props.id} className="nullClick">
+                    <FlexMonth className="nullClick" onClick={this.oneClick}>
+                        <button className="nullClick" onClick={this.backMonth}>Prev</button>
+                        <button className="nullClick" onClick={this.forwardMonth}>Next</button>
+                        {this.state.months[Number(this.state.currentMonth)]}
+                    </FlexMonth>
                     <FlexCal className="nullClick">
-                        {this.state.shortDays.map((item, index)=> <Date key={index} day={index + 1}/>)}
+                        {this.state.days.map((item, index)=> <CalDate key={index}
+                        id={this.props.id}
+                        day={item - this.state.firstDay}
+                        month={this.state.currentMonth}
+                        year={this.state.currentYear}
+                        setStartDate={this.props.setStartDate}
+                        setEndDate={this.props.setEndDate}
+                        dateSelected={this.state.clicked}
+                        oneClick={this.oneClick}/>)}
                     </FlexCal>
                 </Cal>
         )
