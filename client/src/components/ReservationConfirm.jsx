@@ -69,7 +69,6 @@ const Span = styled.span`
 
 const Transit = styled.div`
 visibility: ${props => props.total === 0 ? 'hidden': 'visible'};
-${ props => props.total && css` transition: height 100ms ease-in-out;`};
 animation: fadeIn 1s linear;
 `
 
