@@ -1,5 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import styled from 'styled-components';
+
+const Td = styled.td`
+    border: 1px solid rgb(196, 196, 196);
+    white-space:nowrap;
+    padding:.5rem;
+`;
+
+const DropDown = styled.select`
+    display:table;
+    margin:auto;
+    min-width: 100%;
+    margin-bottom: 10px;
+`;
 
 class ReservationRow extends React.Component {
     constructor(props) {
@@ -47,14 +61,14 @@ class ReservationRow extends React.Component {
     render() {
         return (
             <tr>
-                <td>{this.props.room[0].maxBeds} Bed Room </td>
-                <td>${this.avg}</td>
-                <td>
-                    <select className="dropDown" onChange={this.handleChange}>
+                <Td>{this.props.room[0].maxBeds} Bed Room </Td>
+                <Td>${this.avg}</Td>
+                <Td>
+                    <DropDown onChange={this.handleChange}>
                         <option>Select</option>
                         {this.arrayOfAvailability(this.leastBedsLeft(this.props.room)).map((bed) => <option key={bed} value={bed}>{bed} bed(s)</option>)}
-                    </select>
-                </td>
+                    </DropDown>
+                </Td>
             </tr>
         )
     }

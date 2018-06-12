@@ -1,11 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Date from './Date.jsx';
+import styled from 'styled-components';
+
+const Cal = styled.div`
+    width: 350px;
+    height: 250px;
+    background-color: white;
+    border: 1px solid black;
+    position: fixed;
+    z-index: 2;
+    top: 15%;
+    animation: fadein 2s;
+`;
+
+const FlexCal = styled.ul`
+    display: flex;
+    list-style: none;
+    flex-flow: wrap;
+    justify-content: left;
+    padding: 5px;
+`
 
 class Calendar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            left: false,
             currentMonth: 7,
             longMonths: [1, 3, 5, 6, 8, 10, 12],
             shortMonths:[4, 7, 9, 11],
@@ -14,18 +35,21 @@ class Calendar extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (!this.props.endDate) {
+            this.setState({left: true})
+        }
+    }
 
     render() {
-        if (this.state.shortMonths.includes(this.state.currentMonth)) {
-            return (
-                    <div id={this.props.id} className="Calendar">
-                        {console.log(this.props.startDate)}
-                        <ul className="flexCal nullClick">
-                            {this.state.shortDays.map((item, index)=> <Date key={index} day={index + 1}/>)}
-                        </ul>
-                    </div>
-            )
-        }
+        return (
+                <Cal id={this.props.id}>
+                    {console.log(this.props)}
+                    <FlexCal className="nullClick">
+                        {this.state.shortDays.map((item, index)=> <Date key={index} day={index + 1}/>)}
+                    </FlexCal>
+                </Cal>
+        )
     }
 }
 

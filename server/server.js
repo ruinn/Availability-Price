@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/../client/dist`));
 
 const port = 3003;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`listening in on ${port}`);
 });
 
@@ -24,4 +24,4 @@ app.get('/api/hostels/:hostelId/reservations', (req, res) => {
   });
 });
 
-module.exports.app = app;
+module.exports = server;

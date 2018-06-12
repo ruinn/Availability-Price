@@ -1,16 +1,30 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import Calendar from './Calendar.jsx';
+import styled from 'styled-components';
+
+const InlineP = styled.p`
+    display: inline-block;
+`
+const InlineA = styled.a`
+    display: inline-block;    
+`
+
+const SearchDisplay = styled.div`
+    display: inline-block;
+`
+
+const DropDown = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+// display: flex;
+// flex-direction:column;
 class SearchBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            startCal: false,
-            endCal: false,
-        }
         this.parseDate = this.parseDate.bind(this);
         this.clickHandler = this.clickHandler.bind(this);
-        this.turnOff = this.turnOff.bind(this);
     }
 
     parseDate(input) {
@@ -22,32 +36,27 @@ class SearchBar extends React.Component {
 
     clickHandler(event) {
         event.preventDefault();
-        this.setState({[event.target.id]: !this.state[event.target.id]})
+        this.props.toggler(event)
     }
-
-    turnOff(event) {
-        console.log(event.target.className)
-        if (!event.target.className.includes("nullClick")) {
-            this.setState({
-                startCal: false,
-                endCal: false,
-            })
-        }
-    }
-
 
     render() {
         return (
-            <div id="SearchBar" onClick={this.turnOff}>
-                <p className="searchItem">Reservation dates for {this.parseDate(this.props.startDate)}</p>
-                <a className="searchItem" id="startCal" className="nullClick" href="true" onClick={this.clickHandler}>Click</a>
-                <p className="searchItem"> - {this.parseDate(this.props.endDate)}</p>
-                <a className="searchItem" id="endCal" className="nullClick" href="true" onClick={this.clickHandler}>Click</a>
-                <div>
-                { this.state.startCal ? <Calendar startDate={this.props.startDate} id="Calendar" className="Calendar"/> : null }
-                { this.state.endCal ? <Calendar startDate={this.props.endDate} id="Calendar2" className="Calendar"/> : null }
-                </div>
-            </div>
+            <SearchDisplay onClick={this.props.turnOff}>
+                <InlineP>Reservation dates for {this.parseDate(this.props.startDate)}</InlineP>
+                    <SearchDisplay>
+                        <DropDown>
+                            <InlineA id="startCal" className="nullClick" href="true" onClick={this.clickHandler}>Click</InlineA>
+                            { this.props.startCal ? <Calendar startDate={this.props.startDate} id="Calendar"/> : null }
+                        </DropDown> 
+                    </SearchDisplay>
+                <InlineP> - {this.parseDate(this.props.endDate)}</InlineP>
+                <SearchDisplay>
+                        <DropDown>
+                            <InlineA id="endCal" className="nullClick" href="true" onClick={this.clickHandler}>Click</InlineA>
+                            { this.props.endCal ? <Calendar endDate={this.props.endDate} id="Calendar2"/> : null }
+                        </DropDown> 
+                </SearchDisplay>
+            </SearchDisplay>
         )
     }
 }
