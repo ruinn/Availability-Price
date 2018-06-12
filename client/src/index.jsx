@@ -149,11 +149,15 @@ class Booking extends React.Component {
     }
 
     submitDates() {
-        this.setState({
-            startDate: this.startHolder,
-            endDate: this.endHolder
-        })
-        this.initializeRoom()
+        if(this.startHolder !== 0 && this.endHolder !== 0 && this.startHolder < this.endHolder) {
+            this.setState({
+                startDate: this.startHolder,
+                endDate: this.endHolder,
+                selectedRooms: [],
+                total: 0,
+            })
+            this.initializeRoom()
+        }
     }
 
 
