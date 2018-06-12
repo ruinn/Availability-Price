@@ -1,6 +1,64 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReservationRow from './ReservationRow.jsx'
+import ReservationRow from './ReservationRow.jsx';
+import styled from 'styled-components';
+
+const StyledTable = styled.table`
+    border-collapse: collapse;
+    width: 100%;
+`;
+
+const StyledBody = styled.tbody`
+    background-color: rgb(255, 255, 255);
+`;
+
+const Td = styled.td`
+    border: 1px solid rgb(196, 196, 196);
+    white-space:nowrap;
+    padding:.5rem;
+`;
+
+const Th = styled.th`
+    border: 1px solid rgb(196, 196, 196);
+    white-space:nowrap;
+    padding:.5rem;
+`;
+
+const Tr = styled.tr`
+    font-size: 12px;
+    color: rgb(105, 105, 105);
+    vertical-align: bottom;
+`;
+
+const DormName = styled.th`
+    border: 1px solid rgb(196, 196, 196);
+    white-space:nowrap;
+    padding:.5rem;
+    text-align: left;
+    width: 100%;   
+`;
+
+const NormalHeader = styled.th`
+    border: 1px solid rgb(196, 196, 196);
+    white-space:nowrap;
+    padding:.5rem;
+    min-width: 100px;
+`;
+
+const LargeHeader = styled.th`
+    border: 1px solid rgb(196, 196, 196);
+    white-space:nowrap;
+    padding:.5rem;
+    min-width: 150px;
+`
+
+const H4 = styled.h4`
+    color: black;
+    font-size: 16px;
+    margin:0px;
+`;
+
+
 class Reservations extends React.Component {
     constructor(props) {
         super(props);
@@ -9,25 +67,25 @@ class Reservations extends React.Component {
     
     render() {
         return (
-            <div id="reservations">
-                <table id="dorms">
+            <div>
+                <StyledTable>
                     <thead>
-                        <tr id="header">
-                            <th className="dormName"><h4>Dorm Beds</h4>
+                        <Tr>
+                            <DormName><H4>Dorm Beds</H4>
                                 <span>Prices are per room</span>
-                            </th>
-                            <th className="normalHeader">Average price per night</th>
-                            <th className="countRooms">Rooms</th>
-                        </tr>
+                            </DormName>
+                            <NormalHeader>Average price per night</NormalHeader>
+                            <LargeHeader>Rooms</LargeHeader>
+                        </Tr>
                     </thead>
-                    <tbody>
+                    <StyledBody>
                         {this.props.rooms.map((room, index) => {
                             let hasRoom = true;
                             room.room.forEach(date => {if (date.bedsLeft === 0) hasRoom = false;})
                             if (hasRoom) return <ReservationRow key={index} room={room.room} index={index} set={this.props.set}/>
                         })}
-                    </tbody>
-                </table>
+                    </StyledBody>
+                </StyledTable>
             </div>
         )
     }
