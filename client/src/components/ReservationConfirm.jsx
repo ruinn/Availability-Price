@@ -1,7 +1,76 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ConfirmationRow from './ConfirmationRow.jsx';
-import { CSSTransitionGroup } from 'react-transition-group';
+import styled, { keyframes } from 'styled-components';
+
+const slideIn = keyframes`
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+`
+
+const StyledTable = styled.table`
+    border-collapse: collapse;
+    width: 100%;
+`;
+
+const StyledBody = styled.tbody`
+    background-color: rgb(255, 255, 255);
+`;
+
+const Th = styled.th`
+    border: 1px solid rgb(196, 196, 196);
+    white-space:nowrap;
+    padding:.5rem;
+`;
+
+const Td = styled.td`
+    border: 1px solid rgb(196, 196, 196);
+    white-space:nowrap;
+    padding:.5rem;
+`;
+
+const Tr = styled.tr`
+    font-size: 12px;
+    color: rgb(105, 105, 105);
+    vertical-align: bottom;
+`
+const Button = styled.button`
+    float: right;
+`
+
+const DormName = styled.th`
+    border: 1px solid rgb(196, 196, 196);
+    white-space:nowrap;
+    padding:.5rem;
+    text-align: left;
+    width: 100%;   
+`
+
+const NormalHeader = styled.th`
+    border: 1px solid rgb(196, 196, 196);
+    white-space:nowrap;
+    padding:.5rem;
+    min-width: 100px;
+`
+
+const H4 = styled.h4`
+    color: black;
+    font-size: 16px;
+    margin:0px;
+`
+
+const Span = styled.span`
+    float:right;
+`;
+
+const Transit = styled.div`
+visibility: ${props => props.total === 0 ? 'hidden': 'visible'};
+animation: fadeIn 1s linear;
+`
 
 class ReservationConfirm extends React.Component {
     constructor(props) {
@@ -32,31 +101,31 @@ class ReservationConfirm extends React.Component {
 
     render() {
         return (
-            <div id="confirmation"> 
-                <table id="dorms">
+            <Transit total={this.props.total}>
+                <StyledTable>
                     <thead>
-                        <tr id="header">
-                            <th className="dormName"><h4>My Selection</h4></th>
-                            <th className="normalHeader">Bed</th>
-                            <th className="normalHeader">Price Per Night</th>
-                            <th>Nights</th>
-                            <th>Total</th>
-                        </tr>
+                        <Tr>
+                            <DormName><H4>My Selection</H4></DormName>
+                            <NormalHeader>Bed</NormalHeader>
+                            <NormalHeader>Price Per Night</NormalHeader>
+                            <Th>Nights</Th>
+                            <Th>Total</Th>
+                        </Tr>
                     </thead>
-                    <tbody>
+                    <StyledBody>
                         {this.createRows(this.props.selected).map((room, index) =>  <ConfirmationRow room={room} key={index}/>)}
-                    </tbody>
-                </table>
-                <table id="dorms">
-                    <tbody>
+                    </StyledBody>
+                </StyledTable>
+                <StyledTable>
+                    <StyledBody>
                         <tr>
-                            <td className="total">Total:<span id="totalNumber">${this.props.total}</span></td>
+                            <Td>Total:<Span>${this.props.total}</Span></Td>
                         </tr>
-                    </tbody>
-                </table>
-                <button id="confirmButton">Confirm</button>
+                    </StyledBody>
+                </StyledTable>
+                <Button>Confirm</Button>
 
-            </div>
+            </Transit>
         )
     }
 }

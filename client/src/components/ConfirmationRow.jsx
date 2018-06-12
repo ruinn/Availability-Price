@@ -1,5 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import styled from 'styled-components';
+
+const Td = styled.td`
+    border: 1px solid rgb(196, 196, 196);
+    white-space:nowrap;
+    padding:.5rem;
+`;
 
 class ConfirmationRow extends React.Component {
     constructor(props) {
@@ -10,11 +17,11 @@ class ConfirmationRow extends React.Component {
         if(this.props.room.reservedBeds === 'Select') {return <tr></tr>}
         return (
             <tr>
-                <td>{this.props.room[0].maxBeds} Bed Room </td>
-                <td>{this.props.room.reservedBeds} Beds</td>
-                <td>${this.props.room.avg * this.props.room.reservedBeds}</td>
-                <td>{this.props.room.length}</td>
-                <td id="totalPrice">${this.props.room.avg * this.props.room.reservedBeds * this.props.room.length}</td>
+                <Td>{this.props.room[0].maxBeds} Bed Room </Td>
+                <Td>{this.props.room.reservedBeds} Beds</Td>
+                <Td>${(this.props.room.avg * this.props.room.reservedBeds).toFixed(2)}</Td>
+                <Td>{this.props.room.length}</Td>
+                <Td>${this.props.room.avg * this.props.room.reservedBeds * this.props.room.length}</Td>
             </tr>
         )
     }

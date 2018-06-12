@@ -4,7 +4,17 @@ import SearchBar from './components/SearchBar.jsx';
 import Reservations from './components/Reservations.jsx';
 import ReservationConfirm from './components/ReservationConfirm.jsx';
 import { CSSTransitionGroup } from 'react-transition-group';
-// const body = styled.div`margin:0;`
+import styled from 'styled-components';
+
+const Container = styled.div`
+margin:auto;
+width: 60%;
+z-index: -1;
+`;
+
+const H2= styled.h2`
+    margin-top: 0;
+`
 
 class Booking extends React.Component {
     constructor(props) {
@@ -21,9 +31,13 @@ class Booking extends React.Component {
             averagePrice: 0,
             selectedRooms: {},
             total: 0,
+            startCal: false,
+            endCal: false,
         }
         this.setCurrentRoom = this.setCurrentRoom.bind(this);
         this.updateTotal = this.updateTotal.bind(this);
+        this.turnOff = this.turnOff.bind(this);
+        this.toggleCalendars = this.toggleCalendars.bind(this);
     }
 
     componentDidMount() {
@@ -92,36 +106,48 @@ class Booking extends React.Component {
         this.setState({total: total});
     }
 
+    turnOff(event) {
+        if (!event.target.className.includes("nullClick")) {
+            this.setState({
+                startCal: false,
+                endCal: false,
+            })
+        }
+    }
+
+    toggleCalendars(event) {
+        event.preventDefault();
+        if (this.state.startCal && event.target.id !== startCal) {
+            this.setState({ startCal: false })
+        }
+        if (this.state.endCal && event.target.id !== endCal) {
+            this.setState({ endCal: false })
+        }
+        this.setState({[event.target.id]: !this.state[event.target.id]})
+    }
+
 
     render(){
-        if (this.state.total === 0) {
-            return (
-                <div id="container">
-                    <h2>Check Availability</h2>
-                    <SearchBar startDate={this.state.startDate} endDate={this.state.endDate}/>
-                    <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
-                </div>
-            )
-        }
         return (
-            <div id="container">
-                <h2>Check Availability</h2>
-                <SearchBar startDate={this.state.startDate} endDate={this.state.endDate}/>
-                <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
-                {/* <CSSTransitionGroup
-                    transitionName="example"
-                    transitionAppear={true}
-                    transitionAppearTimeout={500}
-                    transitionLeaveTimeout={300}
-                    transitionEnter={false}
-                    transitionLeave={true}> */}
-                    <ReservationConfirm room={this.state.currentRoom}
+            <div onClick={this.turnOff}>
+                <Container>
+                    <H2>Check Availability</H2>
+                    <SearchBar startDate={this.state.startDate}
+                        endDate={this.state.endDate}
+                        startCal={this.state.startCal}
+                        endCal={this.state.endCal}
+                        turnOff={this.turnOff}
+                        toggler={this.toggleCalendars}/>
+                    <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
+                    <ReservationConfirm 
+                        total={this.state.total}
+                        room={this.state.currentRoom}
                         beds={this.state.numberOfBeds}
                         average={this.state.averagePrice}
                         selected={this.state.selectedRooms}
                         total={this.state.total}
                         update={this.updateTotal}/>
-                {/* </CSSTransitionGroup> */}
+                </Container>
             </div>
         )
     }
