@@ -5,9 +5,9 @@ import styled from 'styled-components';
 
 const InlineP = styled.p`
     display: inline-block;
-`
-const InlineA = styled.a`
-    display: inline-block;    
+    `
+    const InlineA = styled.a`
+    display: inline-block;
 `
 
 const SearchDisplay = styled.div`

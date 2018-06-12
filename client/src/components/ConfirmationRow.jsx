@@ -13,6 +13,12 @@ class ConfirmationRow extends React.Component {
         super(props)
     }
 
+    componentDidMount() {
+        if (this.props.total > 0) {
+            this.props.appear();
+        }
+    }
+
     render() {
         if(this.props.room.reservedBeds === 'Select') {return <tr></tr>}
         return (
