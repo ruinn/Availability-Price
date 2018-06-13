@@ -28,9 +28,10 @@ class Booking extends React.Component {
         super(props);
         this.state = {
             unfiltered: {},
+            lastUnfiltered: {},
             hotelRooms: { rooms: [] },
-            startDate: '2018-06-01',
-            endDate: '2018-06-04',
+            startDate: '2018-06-2',
+            endDate: '2018-06-5',
             startPoint: 0,
             endPoint: 0,
             currentRoom: {},
@@ -41,10 +42,16 @@ class Booking extends React.Component {
             startCal: false,
             endCal: false,
         }
+        let startHolder = this.state.startDate;
+        console.log(startHolder)
+        let endHolder = this.state.endDate;
         this.setCurrentRoom = this.setCurrentRoom.bind(this);
         this.updateTotal = this.updateTotal.bind(this);
         this.turnOff = this.turnOff.bind(this);
         this.toggleCalendars = this.toggleCalendars.bind(this);
+        this.setStartDate = this.setStartDate.bind(this);
+        this.setEndDate = this.setEndDate.bind(this);
+        this.submitDates = this.submitDates.bind(this);
     }
 
     componentDidMount() {
@@ -52,18 +59,19 @@ class Booking extends React.Component {
     }
     
     initializeRoom() {
-        fetch('http://localhost:3003/api/hostels/1/reservations')
+        fetch('http://localhost:3003/api/hostels/5/reservations')
         .then(response => response.json())
         .then(response => {
-            console.log(response)
-            this.filterByDate(response);
-            this.setState({unfiltered: response});
+            let original = Object.assign({}, response);
+            let clone = JSON.parse(JSON.stringify(response));
+            this.setState({unfiltered: original}, ()=> console.log(this.state.unfiltered));
+            this.filterByDate(clone);
         })
     }
 
-
-    filterByDate(unfiltered) {
-        const dateList = unfiltered.rooms[0].room;
+    // create JS dates by using new Date() with isodate as input
+    filterByDate(rawData) {
+        const dateList = rawData.rooms[0].room;
         dateList.forEach((data, index) => {
             const date = data.date.split('T')[0];
             if (this.parseDate(date) === this.parseDate(this.state.startDate)) {
@@ -72,7 +80,7 @@ class Booking extends React.Component {
                 this.setState({ endPoint: index });
             }
         });
-        const roomList = unfiltered.rooms;
+        const roomList = rawData.rooms;
         roomList.map((room, index) => {
             room.room = room.room.slice(this.state.startPoint, this.state.endPoint + 1)
         });
@@ -133,6 +141,28 @@ class Booking extends React.Component {
         this.setState({[event.target.id]: !this.state[event.target.id]})
     }
 
+    setStartDate(year, month, day) {
+        this.startHolder = year + '-' + month + '-' + day;
+        console.log(this.startHolder)
+    }
+
+    setEndDate(year, month, day) {
+        this.endHolder =  year + '-' + month + '-' + day;
+        console.log(this.endHolder)
+    }
+
+    submitDates() {
+        if(this.startHolder !== 0 && this.endHolder !== 0 && this.startHolder < this.endHolder) {
+            this.setState({
+                startDate: this.startHolder,
+                endDate: this.endHolder,
+                selectedRooms: [],
+                total: 0,
+            })
+            this.initializeRoom()
+        }
+    }
+
 
     render(){
         return (
@@ -143,8 +173,14 @@ class Booking extends React.Component {
                         endDate={this.state.endDate}
                         startCal={this.state.startCal}
                         endCal={this.state.endCal}
-                        turnOff={this.turnOff}
-                        toggler={this.toggleCalendars}/>
+                        toggler={this.toggleCalendars}
+                        setStartDate={this.setStartDate}
+                        setEndDate={this.setEndDate}
+                        submitDates={this.submitDates}
+                        startHolder={this.startHolder}
+                        hotelRooms={this.state.hotelRooms}
+                        unfiltered={this.state.unfiltered}
+                        />
                     <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
                     <ReservationConfirm 
                         total={this.state.total}
@@ -159,5 +195,4 @@ class Booking extends React.Component {
         )
     }
 }
-// window.Booking = Booking;
 ReactDom.render(<Booking/>, document.getElementById('booking'));

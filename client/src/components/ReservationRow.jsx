@@ -25,18 +25,18 @@ class ReservationRow extends React.Component {
         this.state = {
             value : 0,
         }
-        let avg = 0;
         this.leastBedsLeft = this.leastBedsLeft.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.average = this.average.bind(this);
     }
 
-    componentDidMount() {
+    average() {
         let average = (this.props.room.reduce((a, b) => {
             if(!a) return b.price;
             if(!a.price) return a + b.price;
             return a.price + b.price;
         })/4).toFixed(2);
-        this.avg = average;
+        return average;
     }
 
     leastBedsLeft(beds) {
@@ -63,10 +63,11 @@ class ReservationRow extends React.Component {
     }
 
     render() {
+        if (this.props.room.length > 0) {
         return (
             <tr>
                 <Td>{this.props.room[0].maxBeds} Bed Room </Td>
-                <Td>${this.avg}</Td>
+                <Td>${this.average()}</Td>
                 <Td>
                     <DropDown onChange={this.handleChange}>
                         <option>Select</option>
@@ -75,6 +76,8 @@ class ReservationRow extends React.Component {
                 </Td>
             </tr>
         )
+        }
+        return (null)
     }
 }
 

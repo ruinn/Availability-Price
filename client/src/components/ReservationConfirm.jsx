@@ -20,8 +20,6 @@ const slideUp = keyframes`
     }
     100% {
         transform: translateY(-140%);
-        opacity: 0%;
-        display: none;
     }		
 }
 `

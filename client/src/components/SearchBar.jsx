@@ -5,21 +5,52 @@ import styled from 'styled-components';
 
 const InlineP = styled.p`
     display: inline-block;
-    `
-    const InlineA = styled.a`
+    text-align: center;
+    margin-left: 1%;
+    margin-right: 1%;
+`
+
+const InlineA = styled.button`
+    cursor: pointer;
     display: inline-block;
+    width: 100%;
+    height: 30px;
+    background-color: white;
+    box-shadow: inset 0 1px 2px #C4C4C4;
+    border-radius: 3px;
+    border: none;
+    text-align: center;
 `
 
 const SearchDisplay = styled.div`
     display: inline-block;
+    width:25%
+`
+
+const Container = styled.div`
+    display: inline-block;
+    width: 100%;
+    position:relative;
 `
 
 const DropDown = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
 `
-// display: flex;
-// flex-direction:column;
+
+const SearchButton = styled.button`
+cursor: pointer;
+background-color: #FF6600; 
+border-color: #130269; 
+border: none;
+border-radius: 3px;
+width: 25%;
+height: 30px;
+color: white;
+margin-left: 2%;
+`
+
 class SearchBar extends React.Component {
     constructor(props) {
         super(props);
@@ -40,23 +71,41 @@ class SearchBar extends React.Component {
     }
 
     render() {
+        let displayStart = this.props.startHolder || this.props.startDate
         return (
-            <SearchDisplay onClick={this.props.turnOff}>
-                <InlineP>Reservation dates for {this.parseDate(this.props.startDate)}</InlineP>
+            <Container>
+                <InlineP>Dates:</InlineP>
                     <SearchDisplay>
-                        <DropDown>
-                            <InlineA id="startCal" className="nullClick" href="true" onClick={this.clickHandler}>Click</InlineA>
-                            { this.props.startCal ? <Calendar startDate={this.props.startDate} id="Calendar"/> : null }
+                        <DropDown>{console.log(this.props.startHolder,'YOOOOOOOOOOOOOOOOOOOO')}
+                            <InlineA id="startCal" className="nullClick" onClick={this.clickHandler}>{this.parseDate(displayStart)}</InlineA>
+                                { this.props.startCal ?
+                                    <Calendar startDate={this.props.startDate}
+                                        date={this.props.startDate}
+                                        setStartDate={this.props.setStartDate}
+                                        hotelRooms={this.props.hotelRooms}
+                                        unfiltered={this.props.unfiltered}
+                                    id="Calendar"/>
+                                : null }
                         </DropDown> 
                     </SearchDisplay>
-                <InlineP> - {this.parseDate(this.props.endDate)}</InlineP>
+                <InlineP> - </InlineP>
                 <SearchDisplay>
                         <DropDown>
-                            <InlineA id="endCal" className="nullClick" href="true" onClick={this.clickHandler}>Click</InlineA>
-                            { this.props.endCal ? <Calendar endDate={this.props.endDate} id="Calendar2"/> : null }
+                            <InlineA id="endCal" className="nullClick" onClick={this.clickHandler}>{this.parseDate(this.props.endDate)}</InlineA>
+                            { this.props.endCal ?
+                                <Calendar
+                                    endDate={this.props.endDate}
+                                    date={this.props.endDate}
+                                    setEndDate={this.props.setEndDate}
+                                    startHolder={this.props.startHolder}
+                                    selectedRooms={this.props.selectedRooms}
+                                    unfiltered={this.props.unfiltered}
+                                id="Calendar2"/>
+                            : null }
                         </DropDown> 
                 </SearchDisplay>
-            </SearchDisplay>
+                <SearchButton id="submit" onClick={this.props.submitDates}>Search</SearchButton>
+            </Container>
         )
     }
 }
