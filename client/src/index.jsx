@@ -28,6 +28,7 @@ class Booking extends React.Component {
         super(props);
         this.state = {
             unfiltered: {},
+            lastUnfiltered: {},
             hotelRooms: { rooms: [] },
             startDate: '2018-06-2',
             endDate: '2018-06-5',
@@ -41,8 +42,9 @@ class Booking extends React.Component {
             startCal: false,
             endCal: false,
         }
-        let startHolder = '';
-        let endHolder = '';
+        let startHolder = this.state.startDate;
+        console.log(startHolder)
+        let endHolder = this.state.endDate;
         this.setCurrentRoom = this.setCurrentRoom.bind(this);
         this.updateTotal = this.updateTotal.bind(this);
         this.turnOff = this.turnOff.bind(this);
@@ -60,15 +62,16 @@ class Booking extends React.Component {
         fetch('http://localhost:3003/api/hostels/5/reservations')
         .then(response => response.json())
         .then(response => {
-            console.log(response)
-            this.filterByDate(response);
-            this.setState({unfiltered: response});
+            let original = Object.assign({}, response);
+            let clone = JSON.parse(JSON.stringify(response));
+            this.setState({unfiltered: original}, ()=> console.log(this.state.unfiltered));
+            this.filterByDate(clone);
         })
     }
 
-
-    filterByDate(unfiltered) {
-        const dateList = unfiltered.rooms[0].room;
+    // create JS dates by using new Date() with isodate as input
+    filterByDate(rawData) {
+        const dateList = rawData.rooms[0].room;
         dateList.forEach((data, index) => {
             const date = data.date.split('T')[0];
             if (this.parseDate(date) === this.parseDate(this.state.startDate)) {
@@ -77,7 +80,7 @@ class Booking extends React.Component {
                 this.setState({ endPoint: index });
             }
         });
-        const roomList = unfiltered.rooms;
+        const roomList = rawData.rooms;
         roomList.map((room, index) => {
             room.room = room.room.slice(this.state.startPoint, this.state.endPoint + 1)
         });
@@ -173,7 +176,11 @@ class Booking extends React.Component {
                         toggler={this.toggleCalendars}
                         setStartDate={this.setStartDate}
                         setEndDate={this.setEndDate}
-                        submitDates={this.submitDates}/>
+                        submitDates={this.submitDates}
+                        startHolder={this.startHolder}
+                        hotelRooms={this.state.hotelRooms}
+                        unfiltered={this.state.unfiltered}
+                        />
                     <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
                     <ReservationConfirm 
                         total={this.state.total}

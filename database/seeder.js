@@ -24,7 +24,7 @@ const randomRoom = () => {
       let daysAhead = 0;
       const maxBeds = randomizeNumber(1, 11);
       const AllRooms = new db.AllRooms({});
-      while (daysAhead < 30) {
+      while (daysAhead < 90) {
         const currentRoom = {};
         currentRoom.record = record;
         currentRoom.hotelId = hotels;
