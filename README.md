@@ -1,6 +1,6 @@
 # Project Name
 
-> Project description
+> RUinn? Bookings Module
 
 ## Related Projects
 
@@ -12,13 +12,14 @@
 ## Table of Contents
 
 1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
+2. [Requirements](#requirements)
+3. [Development](#development)
 
 ## Usage
 
 Run MongoDB (your mongoDB filepath here)
 Run a get request using Postman or something similar to localhost:3003/seedDb to seed database of mock data
+Start server using npm start
 
 
 ## Requirements

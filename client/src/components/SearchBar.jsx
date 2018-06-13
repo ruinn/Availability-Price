@@ -76,7 +76,7 @@ class SearchBar extends React.Component {
             <Container>
                 <InlineP>Dates:</InlineP>
                     <SearchDisplay>
-                        <DropDown>{console.log(this.props.startHolder,'YOOOOOOOOOOOOOOOOOOOO')}
+                        <DropDown>
                             <InlineA id="startCal" className="nullClick" onClick={this.clickHandler}>{this.parseDate(displayStart)}</InlineA>
                                 { this.props.startCal ?
                                     <Calendar startDate={this.props.startDate}

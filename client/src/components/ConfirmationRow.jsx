@@ -16,6 +16,7 @@ class ConfirmationRow extends React.Component {
     componentDidMount() {
         if (this.props.total > 0) {
             this.props.appear();
+            console.log('clicked')
         }
     }
 

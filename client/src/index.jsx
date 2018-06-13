@@ -43,7 +43,6 @@ class Booking extends React.Component {
             endCal: false,
         }
         let startHolder = this.state.startDate;
-        console.log(startHolder)
         let endHolder = this.state.endDate;
         this.setCurrentRoom = this.setCurrentRoom.bind(this);
         this.updateTotal = this.updateTotal.bind(this);
@@ -62,10 +61,9 @@ class Booking extends React.Component {
         fetch('http://localhost:3003/api/hostels/5/reservations')
         .then(response => response.json())
         .then(response => {
-            let original = Object.assign({}, response);
             let clone = JSON.parse(JSON.stringify(response));
-            this.setState({unfiltered: original}, ()=> console.log(this.state.unfiltered));
-            this.filterByDate(clone);
+            this.setState({unfiltered: clone});
+            this.filterByDate(response);
         })
     }
 
@@ -143,12 +141,10 @@ class Booking extends React.Component {
 
     setStartDate(year, month, day) {
         this.startHolder = year + '-' + month + '-' + day;
-        console.log(this.startHolder)
     }
 
     setEndDate(year, month, day) {
         this.endHolder =  year + '-' + month + '-' + day;
-        console.log(this.endHolder)
     }
 
     submitDates() {
@@ -183,13 +179,11 @@ class Booking extends React.Component {
                         />
                     <Reservations rooms={this.state.hotelRooms.rooms} set={this.setCurrentRoom}/>
                     <ReservationConfirm 
-                        total={this.state.total}
                         room={this.state.currentRoom}
                         beds={this.state.numberOfBeds}
                         average={this.state.averagePrice}
                         selected={this.state.selectedRooms}
-                        total={this.state.total}
-                        update={this.updateTotal}/>
+                        total={this.state.total}/>
                 </Container>
             </Styles>
         )
