@@ -59,7 +59,7 @@ class ReservationRow extends React.Component {
 
     handleChange(e) {
         this.setState({value: e.target.value});
-        this.props.set(this.props.room, e.target.value, this.avg, this.props.index)
+        this.props.set(this.props.room, e.target.value, this.average(), this.props.index)
     }
 
     render() {
