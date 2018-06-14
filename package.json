@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "babel-loader": "^7.1.4",
+    "babel-plugin-styled-components": "^1.5.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.3.0",
