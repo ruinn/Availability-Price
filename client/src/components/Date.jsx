@@ -41,7 +41,6 @@ class CDate extends React.Component {
         let test2 = this.props.unfiltered.rooms[0].room[this.props.unfiltered.rooms[0].room.length - 1].date
         let test3= test2.split('T')[0]
         let testfin = this.parseDate(test3)
-        console.log(test < testfin)
     }
 
     
