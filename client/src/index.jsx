@@ -8,9 +8,9 @@ import styled from 'styled-components';
 
 const Container = styled.div`
 margin:auto;
-width: 60%;
+width: 70%;
 z-index: -1;
-`;
+`
 
 const H2= styled.h2`
     margin-top: 0;
@@ -20,7 +20,8 @@ const Styles=styled.div`
     font-family: Helvetica;
     width: 100%; 
     background-color: rgb(235, 235, 235); 
-    padding: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 `
 
 class Booking extends React.Component {

@@ -84,13 +84,13 @@ const Span = styled.span`
     float:right;
 `;
 
+
 const Transit = styled.div`
 max-height: 500px;
 position: relative;
 visibility: ${props => !props.toggler ? 'hidden': 'visible' }
 ${props => props.total === 0 && css` animation: ${slideUp} .2s linear forwards;`}
 ${props => props.total > 0 && css` animation: ${slideIn} .2s linear;`}
-
 `
 
 const HeightCheck = styled.div`
@@ -105,6 +105,7 @@ class ReservationConfirm extends React.Component {
         }
         this.createRows = this.createRows.bind(this);
         this.appear = this.appear.bind(this);
+        console.log(this.state.toggler)
     }
 
     appear() {
