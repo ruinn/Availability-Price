@@ -88,8 +88,8 @@ const Transit = styled.div`
 max-height: 500px;
 position: relative;
 visibility: ${props => !props.toggler ? 'hidden': 'visible' }
-${props => props.total === 0 && css` animation: ${slideUp} .5s linear forwards;`}
-${props => props.total > 0 && css` animation: ${slideIn} .5s linear;`}
+${props => props.total === 0 && css` animation: ${slideUp} .2s linear forwards;`}
+${props => props.total > 0 && css` animation: ${slideIn} .2s linear;`}
 
 `
 
