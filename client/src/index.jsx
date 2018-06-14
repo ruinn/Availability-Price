@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import SearchBar from './components/SearchBar.jsx';
+import FindBar from './components/FindBar.jsx';
 import Reservations from './components/Reservations.jsx';
 import ReservationConfirm from './components/ReservationConfirm.jsx';
 import { CSSTransitionGroup } from 'react-transition-group';
@@ -169,7 +169,7 @@ class Booking extends React.Component {
             <Styles onClick={this.turnOff}>
                 <Container>
                     <H2>Check Availability</H2>
-                    <SearchBar startDate={this.state.startDate}
+                    <FindBar startDate={this.state.startDate}
                         endDate={this.state.endDate}
                         startCal={this.state.startCal}
                         endCal={this.state.endCal}
