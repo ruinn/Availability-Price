@@ -32,7 +32,7 @@ const Cal = styled.div`
     height: 250px;
     background-color: white;
     border: 1px solid black;
-    position: fixed;
+    position: absolute;
     z-index: 2;
     top: 15%;
     ${props => !props.id && css` animation: ${slideUp} .3s linear forwards;`}
@@ -121,7 +121,7 @@ class Calendar extends React.Component {
     }
 
     clickDate(num) {
-        this.setState({ clickedDate: num }, ()=> console.log(num, this.state.clickedDate, 'last clicked date'))
+        this.setState({ clickedDate: num })
         
     }
 
