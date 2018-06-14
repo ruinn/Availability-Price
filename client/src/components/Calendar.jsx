@@ -28,10 +28,12 @@ const slideUp = keyframes`
 
 
 const Cal = styled.div`
+    margin-top: 35px;
     width: 350px;
     height: 250px;
     background-color: white;
-    border: 1px solid black;
+    border: 1px solid #C4C4C4;
+    box-shadow: 0 6px 18px 1px rgba(0,0,0,.12);
     position: absolute;
     z-index: 2;
     top: 15%;
@@ -40,16 +42,34 @@ const Cal = styled.div`
 `;
 
 const FlexCal = styled.ul`
+    margin: 0;
     display: flex;
     list-style: none;
     flex-flow: wrap;
-    justify-content: left;
-    padding: 5px;
-    position: relative;
+    padding: 10px;
+    padding-bottom: 0px;
 `
 
 const FlexMonth = styled.div`
+    margin-top: 10px;
+    text-align: center;
     display:block;
+    padding: 10px;
+`
+
+const LeftArrow = styled.div`
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent; 
+    border-right:10px solid #FF6600;; 
+    cursor: pointer;
+    float: left;
+`
+const RightArrow = styled.div`
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent; 
+    border-left:10px solid #FF6600;; 
+    cursor: pointer;
+    float: right;
 `
 
 class Calendar extends React.Component {
@@ -153,9 +173,9 @@ class Calendar extends React.Component {
         return (
                 <Cal id={this.props.id} className="nullClick">
                     <FlexMonth className="nullClick">
-                        <button className="nullClick" onClick={this.backMonth}>Prev</button>
-                        <button className="nullClick" onClick={this.forwardMonth}>Next</button>
+                        <LeftArrow className="nullClick" onClick={this.backMonth}></LeftArrow>
                         {this.state.months[Number(this.state.currentMonth)]}
+                        <RightArrow className="nullClick" onClick={this.forwardMonth}></RightArrow>
                     </FlexMonth>
                     <FlexCal className="nullClick">
                         {this.state.days.map((item, index)=>
