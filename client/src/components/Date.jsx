@@ -6,7 +6,6 @@ const Basic = styled.li`
     text-align: center;
     width: 13.69%;
     height: 35px;
-    border: 1px solid black;
     cursor: pointer;
 `
 

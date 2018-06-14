@@ -8,6 +8,7 @@ module.exports = {
           loader: 'babel-loader',
           query: {
             presets: ['env', 'react'],
+            // plugins: ["babel-plugin-styled-components"]
           }
         }
       ]

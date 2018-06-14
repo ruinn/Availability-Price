@@ -20,6 +20,7 @@ const InlineA = styled.button`
     border-radius: 3px;
     border: none;
     text-align: center;
+    z-index: 2;
 `
 
 const SearchDisplay = styled.div`
