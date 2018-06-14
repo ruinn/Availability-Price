@@ -6,9 +6,12 @@ import ReservationConfirm from './components/ReservationConfirm.jsx';
 import { CSSTransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Container = styled.div.attrs({
+    className: 'container'
+})`
+
 margin:auto;
-width: 70%;
+max-width: 1110px;
 z-index: -1;
 `
 
