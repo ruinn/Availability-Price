@@ -2,7 +2,7 @@ version: '3'
 
 services:
   booking:
-    build: hrsf96-front-end-capstone/
+    build: ../hrsf96-front-end-capstone/
     depends_on:
       - 'database'
     ports:
@@ -10,4 +10,3 @@ services:
 
   database:
     image: mongo:latest
-    container_name: MongoDB

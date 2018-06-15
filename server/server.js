@@ -20,7 +20,8 @@ setTimeout(()=>server, 5000)
 app.get('/seedDb', (req, res) => {
   res.send('success');
 });
-app.get('/api/hostels/:hostelId/reservations', (req, res) => {
+
+app.get('/api/hostels/:hostelId', (req, res) => {
   db.serveHotel(req.params.hostelId, (err, data) => {
     if (err) console.log('there was an error', err);
     else res.send(data);
