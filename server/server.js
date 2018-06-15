@@ -14,11 +14,12 @@ const server = app.listen(port, () => {
   console.log(`listening in on ${port}`);
 });
 
+// seeder.randomRoom();
+setTimeout(()=>server, 5000)
+
 app.get('/seedDb', (req, res) => {
-  seeder.randomRoom();
   res.send('success');
 });
-
 app.get('/api/hostels/:hostelId/reservations', (req, res) => {
   db.serveHotel(req.params.hostelId, (err, data) => {
     if (err) console.log('there was an error', err);
