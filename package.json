@@ -8,7 +8,9 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "nodemon ./server/server.js",
+    "deploy": "npm run seed | npm start",
+    "seed": "node ./database/seeder.js",
+    "start": "node ./server/server.js",
     "react-dev": "webpack -d --watch",
     "test": "jest"
   },

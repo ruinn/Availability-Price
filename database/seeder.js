@@ -45,5 +45,6 @@ const randomRoom = () => {
     hotels -= 1;
   }
 };
+randomRoom()
 
 module.exports.randomRoom = randomRoom;
