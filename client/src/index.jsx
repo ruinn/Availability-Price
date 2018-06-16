@@ -72,7 +72,7 @@ class Booking extends React.Component {
              })
         } else {
             let path = window.location.pathname;
-            fetch(`/api/hostels/${path}/reservations`)
+            fetch(`/api/hostels${path}reservations`)
             .then(response => response.json())
             .then(response => {
                 let clone = JSON.parse(JSON.stringify(response));
