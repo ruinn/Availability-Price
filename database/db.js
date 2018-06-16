@@ -6,7 +6,7 @@ const retry = () => {
 mongoose.connect('mongodb://database/bookings').then(()=>{
   console.log('connected to database')
 }).catch(err=>{
-  console.log('error, retry in 5 seconds')
+  console.log(err, 'retry in 5 seconds')
   setTimeout(retry, 5000);
   })
 }

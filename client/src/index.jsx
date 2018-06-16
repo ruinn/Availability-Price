@@ -62,7 +62,7 @@ class Booking extends React.Component {
     }
     
     initializeRoom() {
-        fetch('http://localhost:3003/api/hostels/5/reservations')
+        fetch(`http://localhost:3003/api/hostels${window.location.pathname}reservations`)
         .then(response => response.json())
         .then(response => {
             let clone = JSON.parse(JSON.stringify(response));

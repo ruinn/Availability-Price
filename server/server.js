@@ -8,13 +8,13 @@ const cors = require('cors');
 app.use(cors())
 app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/../public`));
+app.use('/:id', express.static(`${__dirname}/../public`));
 
 const port = 3003;
 const server = app.listen(port, () => {
   console.log(`listening in on ${port}`);
 });
 
-// seeder.randomRoom();
 setTimeout(()=>server, 5000)
 
 app.get('/seedDb', (req, res) => {
