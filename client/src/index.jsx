@@ -62,13 +62,24 @@ class Booking extends React.Component {
     }
     
     initializeRoom() {
-        fetch(`http://localhost:3003/api/hostels${window.location.pathname}reservations`)
-        .then(response => response.json())
-        .then(response => {
-            let clone = JSON.parse(JSON.stringify(response));
-            this.setState({unfiltered: clone});
-            this.filterByDate(response);
-        })
+        if (window.location.pathname === '/') {      
+            fetch(`/api/hostels/1/reservations`)
+            .then(response => response.json())
+            .then(response => {
+                let clone = JSON.parse(JSON.stringify(response));
+                this.setState({unfiltered: clone});
+                this.filterByDate(response);
+             })
+        } else {
+            let path = window.location.pathname;
+            fetch(`/api/hostels/${path}/reservations`)
+            .then(response => response.json())
+            .then(response => {
+                let clone = JSON.parse(JSON.stringify(response));
+                this.setState({unfiltered: clone});
+                this.filterByDate(response);
+            })
+        }
     }
 
     // create JS dates by using new Date() with isodate as input
