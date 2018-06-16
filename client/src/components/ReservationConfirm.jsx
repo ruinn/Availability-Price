@@ -105,7 +105,6 @@ class ReservationConfirm extends React.Component {
         }
         this.createRows = this.createRows.bind(this);
         this.appear = this.appear.bind(this);
-        console.log(this.state.toggler)
     }
 
     appear() {
